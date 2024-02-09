@@ -27,5 +27,6 @@ Print tables in Rails console
   tp City.all, :id, :name, :house_ids
   tp User.all, :id, :first_name, :email, :owned_house_ids, :booked_house_ids
   tp House.all, :id, :number_of_beds, :price_per_night, :city_id, :owner_id
+  tp Reservation.all, :id, :start_date, :duration_in_night, :end_date, :house_id
 
 ```

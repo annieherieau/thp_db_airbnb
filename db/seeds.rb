@@ -61,13 +61,13 @@ end
 puts '-- 10 houses --'
 
 # Reservation
-# 10.times do |i|
-#   Reservation.clreate!(
-#     start_date: Faker::Date.between(from: 30.days.ago, to: Faker::Date.forward(days: 30)) ,
-#     duration_in_night: rand(1..30),
-#     #foreign keys
-#     house: House.all.sample,
-#     guest: User.all.sample
-#   )
-# end
-# puts '-- 10 reservations --'
+10.times do |i|
+  Reservation.create!(
+    start_date: Faker::Date.between(from: 30.days.ago, to: Faker::Date.forward(days: 30)) ,
+    duration_in_night: rand(1..30),
+    #foreign keys
+    house: House.all.sample,
+    guest: User.all.sample
+  )
+end
+puts '-- 10 reservations --'
