@@ -8,9 +8,21 @@ class Reservation < ApplicationRecord
   validates :house, presence: true
   validates :customer, presence: true
 
-  attr_accessor :total_price
-  ## Attributs
-  # prix calculé
+  # Callback
+  
 
-  # 
+  # methodes
+  def end_date
+    self.start_date + self.duration_in_night * 86400
+  end
+
+  def is_already_booked?(date)
+    date >= self.start_date && date <= self.end_date
+  end
+
+  # Pris totla de la réservation
+  def total_price
+    self.house.price_per_night * duration_in_night
+  end
+
 end
