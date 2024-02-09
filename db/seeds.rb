@@ -23,19 +23,38 @@ reset_pk_sequence!(cities)
 House.destroy_all
 reset_pk_sequence!(houses)
 
+# City
 10.times do |i|
   City.create!(
     name: Faker::Address.city
   )
 end
+puts '-- 10 cities --'
 
+# User
+10.times do |i|
+  first_name = Faker::Name.first_name
+  last_name = Faker::Name.last_name
+  User.create!(
+    first_name: first_name,
+    last_name: last_name,
+    email: "#{first_name[0]}.#{last_name}@email.fr".downcase,
+    phone: Faker::PhoneNumber.phone_number_with_country_code,
+    description:  Faker::Lorem.sentences(number: rand(3..6)).join(' ')
+  )
+end
+puts '-- 10 cities --'
+
+# House
 10.times do |i|
   House.create!(
     number_of_beds: rand(1..5),
     night_price: rand(200..10000).to_f/10,
     description: Faker::Lorem.sentences(number: rand(3..6)).join(' '),
     have_wifi: Faker::Boolean.boolean,
-    # foreign key
-    city: City.all.sample
+    # foreign keys
+    city: City.all.sample,
+    owner: User.all.sample
   )
 end
+puts '-- 10 houses --'
