@@ -49,7 +49,7 @@ puts '-- 10 cities --'
 10.times do |i|
   House.create!(
     number_of_beds: rand(1..5),
-    night_price: rand(200..10000).to_f/10,
+    price_per_night: rand(200..10000).to_f/10,
     description: Faker::Lorem.sentences(number: rand(3..6)).join(' '),
     have_wifi: Faker::Boolean.boolean,
     # foreign keys
@@ -58,3 +58,15 @@ puts '-- 10 cities --'
   )
 end
 puts '-- 10 houses --'
+
+# Reservation
+10.times do |i|
+  Reservation.clreate!(
+    start_date: Faker::Date.between(from: 30.days.ago, to: Faker::Date.forward(days: 30)) ,
+    duration_in_night: rand(1..30),
+    #foreign keys
+    house: House.all.sample,
+    customer: User.all.sample
+  )
+end
+puts '-- 10 reservations --'

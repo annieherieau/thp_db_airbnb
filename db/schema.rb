@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_09_152601) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_09_162037) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,7 +22,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_152601) do
 
   create_table "houses", force: :cascade do |t|
     t.integer "number_of_beds"
-    t.float "night_price"
+    t.float "price_per_night"
     t.text "description"
     t.boolean "have_wifi"
     t.bigint "city_id"
@@ -31,6 +31,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_152601) do
     t.bigint "owner_id"
     t.index ["city_id"], name: "index_houses_on_city_id"
     t.index ["owner_id"], name: "index_houses_on_owner_id"
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.datetime "start_date"
+    t.integer "duration_in_night"
+    t.bigint "customer_id"
+    t.bigint "house_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_reservations_on_customer_id"
+    t.index ["house_id"], name: "index_reservations_on_house_id"
   end
 
   create_table "users", force: :cascade do |t|
