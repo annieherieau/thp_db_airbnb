@@ -8,10 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-# # reset tables
-# ActiveRecord::Base.connection.tables.each do |t|
-#   ActiveRecord::Base.connection.reset_pk_sequence!(t)
-# end
+
 
 require 'faker'
 Faker::Config.locale = 'fr'
@@ -19,9 +16,13 @@ Faker::Config.locale = 'fr'
 puts '----- start seed ------'
 puts '-- clear and reset tables --'
 City.destroy_all
-reset_pk_sequence!(cities)
 House.destroy_all
-reset_pk_sequence!(houses)
+User.destroy_all
+# reset tables
+ActiveRecord::Base.connection.tables.each do |t|
+  ActiveRecord::Base.connection.reset_pk_sequence!(t)
+end
+
 
 # City
 10.times do |i|
@@ -38,12 +39,12 @@ puts '-- 10 cities --'
   User.create!(
     first_name: first_name,
     last_name: last_name,
-    email: "#{first_name[0]}.#{last_name}@email.fr".downcase,
+    email: Faker::Internet.email,
     phone: Faker::PhoneNumber.phone_number_with_country_code,
     description:  Faker::Lorem.sentences(number: rand(3..6)).join(' ')
   )
 end
-puts '-- 10 cities --'
+puts '-- 10 users --'
 
 # House
 10.times do |i|
@@ -51,7 +52,7 @@ puts '-- 10 cities --'
     number_of_beds: rand(1..5),
     price_per_night: rand(200..10000).to_f/10,
     description: Faker::Lorem.sentences(number: rand(3..6)).join(' '),
-    have_wifi: Faker::Boolean.boolean,
+    have_wifi: [true, false].sample,
     # foreign keys
     city: City.all.sample,
     owner: User.all.sample
@@ -60,13 +61,13 @@ end
 puts '-- 10 houses --'
 
 # Reservation
-10.times do |i|
-  Reservation.clreate!(
-    start_date: Faker::Date.between(from: 30.days.ago, to: Faker::Date.forward(days: 30)) ,
-    duration_in_night: rand(1..30),
-    #foreign keys
-    house: House.all.sample,
-    customer: User.all.sample
-  )
-end
-puts '-- 10 reservations --'
+# 10.times do |i|
+#   Reservation.clreate!(
+#     start_date: Faker::Date.between(from: 30.days.ago, to: Faker::Date.forward(days: 30)) ,
+#     duration_in_night: rand(1..30),
+#     #foreign keys
+#     house: House.all.sample,
+#     guest: User.all.sample
+#   )
+# end
+# puts '-- 10 reservations --'
