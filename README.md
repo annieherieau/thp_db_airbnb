@@ -24,9 +24,9 @@ To launch Rails console
 ```
 Print tables in Rails console
 ```bash
-  tp City.all, :id, :name, :house_ids
-  tp User.all, :id, :first_name, :email, :owned_house_ids, :booked_house_ids
-  tp House.all, :id, :number_of_beds, :price_per_night, :city_id, :owner_id
-  tp Reservation.all, :id, :start_date, :duration_in_night, :end_date, :house_id
+  tp City.all, :id, :name, :listing_ids
+  tp User.all, :id, :first_name, :email, :owned_listing_ids, :booked_listing_ids
+  tp Listing.all, :id, :available_beds, :price, :city_id, :owner_id
+  tp Reservation.all, :id, :start_date, :end_date, :duration, :listing_id
 
 ```

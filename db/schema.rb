@@ -10,38 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_09_162037) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_09_155338) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "cities", force: :cascade do |t|
     t.string "name"
+    t.string "zip_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "houses", force: :cascade do |t|
-    t.integer "number_of_beds"
-    t.float "price_per_night"
+  create_table "listings", force: :cascade do |t|
+    t.integer "available_beds"
+    t.float "price"
     t.text "description"
-    t.boolean "have_wifi"
+    t.text "welcome_message"
+    t.boolean "has_wifi"
     t.bigint "city_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "owner_id"
-    t.index ["city_id"], name: "index_houses_on_city_id"
-    t.index ["owner_id"], name: "index_houses_on_owner_id"
+    t.index ["city_id"], name: "index_listings_on_city_id"
+    t.index ["owner_id"], name: "index_listings_on_owner_id"
   end
 
   create_table "reservations", force: :cascade do |t|
     t.datetime "start_date"
-    t.integer "duration_in_night"
+    t.datetime "end_date"
     t.bigint "guest_id"
-    t.bigint "house_id"
+    t.bigint "listing_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["guest_id"], name: "index_reservations_on_guest_id"
-    t.index ["house_id"], name: "index_reservations_on_house_id"
+    t.index ["listing_id"], name: "index_reservations_on_listing_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,5 +56,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_162037) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "houses", "users", column: "owner_id"
+  add_foreign_key "listings", "users", column: "owner_id"
 end
