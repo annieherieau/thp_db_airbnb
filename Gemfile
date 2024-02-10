@@ -69,3 +69,5 @@ end
 gem "faker", "~> 3.2"
 
 gem "table_print", "~> 1.5"
+
+gem "pry", "~> 0.14.2"
