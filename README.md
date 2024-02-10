@@ -30,3 +30,6 @@ Print tables in Rails console
   tp Reservation.all, :id, :start_date, :end_date, :duration, :listing_id
 
 ```
+
+## TODOs
+validations: phone format
