@@ -1,6 +1,6 @@
-# FreeDoc
+# AirBnb (Backend)
 
-Concurrent de Doctolib pour gérer les bases de données avec Rails. Projet validant du 08/02/2024
+Concurrent de AirBnb pour gérer les bases de données avec Rails. 
 - gérer la base de données et les migrations
 - gérer les relations entre les tables et les modèles
 - faire un seed
